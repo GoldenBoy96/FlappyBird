@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource MusicSource;
 
     // Singleton instance
-    public static AudioManager Instance { get; private set; } = null;
+    public static AudioManager Instance = null;
 
     private void Awake()
     {
@@ -19,15 +19,18 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    public void Play(AudioClip clip)
     {
-
+        EffectSource.clip = clip;
+        EffectSource.Play();
     }
 
-    void Update()
+    public void PlayMusic(AudioClip clip)
     {
-
+        MusicSource.clip = clip;
+        MusicSource.Play();
     }
 }

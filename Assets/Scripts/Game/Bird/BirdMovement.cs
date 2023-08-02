@@ -11,6 +11,8 @@ public class BirdMovement : MonoBehaviour
     [SerializeField] private float upperDeathBound = 20f;
     [SerializeField] private float lowerDeathBound = -20f;
 
+    [SerializeField]private AudioClip flapEffect;
+
     #region Components
     private Rigidbody2D rb;
     #endregion
@@ -59,8 +61,8 @@ public class BirdMovement : MonoBehaviour
         if(isAlive)
         {
             rb.velocity = Vector2.up * flapStrength;
+            AudioManager.Instance.Play(BirdManager.Instance.FlapSound);
         }
-        
     }
     #endregion
 }
