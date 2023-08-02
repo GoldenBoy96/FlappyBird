@@ -7,6 +7,8 @@ public class PipeController : MonoBehaviour
     public Transform spawn;
     public Transform end;
 
+    public AudioClip clip;
+
     public GameObject pipePrefab;
     GameObjectPool gameObjectPool = new();
 
