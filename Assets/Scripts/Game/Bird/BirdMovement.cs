@@ -4,17 +4,11 @@ using UnityEngine.InputSystem;
 public class BirdMovement : MonoBehaviour
 {
     [Header("Movement Settings", order = 1)]
-    [SerializeField] private float flapStrength = 10f;
     [SerializeField] private InputAction birdFlap;
-
-    [Header("Restrictions", order = 2)]
-    [SerializeField] private float upperDeathBound = 20f;
-    [SerializeField] private float lowerDeathBound = -20f;
-
-    [SerializeField]private AudioClip flapEffect;
 
     #region Components
     private Rigidbody2D rb;
+    private Animator animator;
     #endregion
 
     #region Parameters
@@ -25,14 +19,12 @@ public class BirdMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (CheckOutOfBoundary())
-        {
-            isAlive = false;
-        }
+
     }
 
     private void OnEnable()
@@ -53,16 +45,35 @@ public class BirdMovement : MonoBehaviour
 
     private bool CheckOutOfBoundary()
     {
-        return transform.position.y > upperDeathBound || transform.position.y < lowerDeathBound;
+        return transform.position.y > BirdManager.Instance.UpperBound || transform.position.y < BirdManager.Instance.LowerBound;
     }
 
     private void BirdFlap(InputAction.CallbackContext context)
     {
-        if(isAlive)
+        if(isAlive && !CheckOutOfBoundary())
         {
-            rb.velocity = Vector2.up * flapStrength;
+            rb.velocity = new Vector2(0, 1 * BirdManager.Instance.FlapStrength) * Time.fixedDeltaTime;
             AudioManager.Instance.Play(BirdManager.Instance.FlapSound);
+            PlayFlapAnimation();
         }
+    }
+
+    private void PlayUpFlapAnimation()
+    {
+        //transform.Rotate(new Vector3(0, 0, 300) * Time.deltaTime);
+        animator.Play("Bird_UpFlap");
+    }
+
+    private void PlayDownFlapAnimation()
+    {
+        //transform.Rotate(new Vector3(0, 0, -300) * Time.deltaTime);
+        animator.Play("Bird_DownFlap");
+    }
+
+    private void PlayFlapAnimation()
+    {
+        PlayUpFlapAnimation();
+        Invoke(nameof(PlayDownFlapAnimation), 0.3f);
     }
     #endregion
 }

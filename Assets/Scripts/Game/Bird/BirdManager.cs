@@ -6,6 +6,10 @@ public class BirdManager : MonoBehaviour
     [Header("Audio")]
     public AudioClip FlapSound;
     [Header("Sprites")]
+    [Header("Stats")]
+    public float FlapStrength = 200f;
+    public float UpperBound = 20f;
+    public float LowerBound = -20f;
 
     // Singleton instance
     public static BirdManager Instance = null;
