@@ -41,6 +41,7 @@ public class BirdMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isAlive = false;
+        AudioManager.Instance.Play(BirdManager.Instance.HitSound);
     }
 
     private bool CheckOutOfBoundary()
@@ -73,7 +74,7 @@ public class BirdMovement : MonoBehaviour
     private void PlayFlapAnimation()
     {
         PlayUpFlapAnimation();
-        Invoke(nameof(PlayDownFlapAnimation), 0.3f);
+        Invoke(nameof(PlayDownFlapAnimation), BirdManager.Instance.FlapAnimationDelay);
     }
     #endregion
 }
