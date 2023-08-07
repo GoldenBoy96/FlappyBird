@@ -21,7 +21,7 @@ public class PipeController : MonoBehaviour
     private void Start()
     {
         gameObjectPool.CreatePool(pipePrefab, 10, transform);
-        Debug.Log(gameObjectPool.Size());
+        //Debug.Log(gameObjectPool.Size());
         StartCoroutine(SpawnPipe(timeBetweenSpawn));
     }
 

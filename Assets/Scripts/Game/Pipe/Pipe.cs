@@ -14,5 +14,13 @@ public class Pipe : MonoBehaviour
         transform.position += speed * Time.deltaTime * Vector3.left;
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Bird"))
+        {
+            GameManager.Instance.score++;
+            Debug.Log(GameManager.Instance.score);
+        }
+
+    }
 }

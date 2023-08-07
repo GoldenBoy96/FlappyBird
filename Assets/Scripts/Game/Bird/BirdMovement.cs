@@ -40,8 +40,13 @@ public class BirdMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isAlive = false;
-        AudioManager.Instance.Play(BirdManager.Instance.HitSound);
+        
+        if (collision.transform.CompareTag("Pipe"))
+        {
+            isAlive = false;
+            AudioManager.Instance.Play(BirdManager.Instance.HitSound);
+        }
+
     }
 
     private bool CheckOutOfBoundary()
